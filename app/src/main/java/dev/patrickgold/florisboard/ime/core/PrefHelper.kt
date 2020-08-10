@@ -19,6 +19,7 @@ package dev.patrickgold.florisboard.ime.core
 import android.content.Context
 import android.content.SharedPreferences
 import android.provider.Settings
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import dev.patrickgold.florisboard.R
 import dev.patrickgold.florisboard.util.VersionName
@@ -96,15 +97,15 @@ class PrefHelper(
     private inline fun <reified T> setPref(key: String, value: T) {
         when {
             false is T -> {
-                shared.edit().putBoolean(key, value as Boolean).apply()
+                shared.edit { putBoolean(key, value as Boolean) }
                 cacheBoolean[key] = value as Boolean
             }
             0 is T -> {
-                shared.edit().putInt(key, value as Int).apply()
+                shared.edit { putInt(key, value as Int) }
                 cacheInt[key] = value as Int
             }
             "" is T -> {
-                shared.edit().putString(key, value as String).apply()
+                shared.edit { putString(key, value as String) }
                 cacheString[key] = value as String
             }
         }
